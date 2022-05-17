@@ -35,6 +35,16 @@ spring:
         max-wait: -1ms
         max-idle: 8
         min-idle: 0
+  rabbitmq:
+    addresses: localhost
+    port: 15672
+    username: guest
+    password: guest
+    virtual-host: /
+    # 手动确认消息
+    listener:
+      simple:
+        acknowledge-mode: manual
 
 mybatis-plus:
   configuration:
@@ -53,6 +63,15 @@ mybatis-plus:
 
       # 可以更新null值
       update-strategy: ignored
+
+logging:
+  file:
+    path: logs
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
 
 jwt:
   # 令牌自定义标识

@@ -3,12 +3,17 @@ package com.haohao.fast.domain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.haohao.fast.common.bean.BaseEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author haohao
  * @TableName sys_user
  */
+@ApiModel("系统用户实体类")
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "sys_user")
 @Data
@@ -17,15 +22,12 @@ import lombok.*;
 @Builder
 public class SysUserEntity extends BaseEntity {
 
-    /**
-     * 主键
-     */
     @TableId
+    @ApiModelProperty(value = "主键", required = true)
     private Long id;
 
-    /**
-     * 用户名称
-     */
+    @ApiModelProperty(value = "用户名", required = true)
+    @NotNull(message = "用户名不能为空")
     private String username;
 
     /**

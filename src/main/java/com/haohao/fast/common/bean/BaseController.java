@@ -3,5 +3,5 @@ package com.haohao.fast.common.bean;
 /**
  * @author haohao
  */
-public class BaseService {
+public class BaseController {
 }

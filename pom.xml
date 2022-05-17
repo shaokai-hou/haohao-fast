@@ -27,6 +27,7 @@
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <hutools-version>5.8.0</hutools-version>
         <guava.version>29.0-jre</guava.version>
+        <swagger.version>3.0.0</swagger.version>
     </properties>
 
     <dependencies>
@@ -105,6 +106,11 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>${jjwt.veersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
 
         <!-- 常用工具类 -->

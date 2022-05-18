@@ -29,7 +29,7 @@ public enum ResultCodeEnum {
     /**
      * 没有访问权限
      */
-    FORBIDDEN(403, "没有访问权限"),
+    FORBIDDEN(403, "无访问权限"),
     /**
      * UNKNOWN_ERROR
      */

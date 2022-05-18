@@ -28,7 +28,7 @@ public class GlobalExceptionConfig {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResultData error(Exception e) {
-        log.error("全局异常信息", e);
+        log.error("全局异常信息 \n", e);
         return ResultData.error().data(e.getMessage());
     }
 
@@ -38,7 +38,7 @@ public class GlobalExceptionConfig {
     @ExceptionHandler(NullPointerException.class)
     @ResponseBody
     public ResultData error(NullPointerException e) {
-        log.error("空指针异常信息", e);
+        log.error("空指针异常信息 \n", e);
         return ResultData.setResult(ResultCodeEnum.NULL_POINT);
     }
 
@@ -48,7 +48,7 @@ public class GlobalExceptionConfig {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public ResultData error(MethodArgumentNotValidException e) {
-        log.error("参数验证异常信息", e);
+        log.error("参数验证异常信息 \n", e);
         Map<String, String> errors = new HashMap<>(1);
         e.getBindingResult().getAllErrors().forEach(error -> errors.put(((FieldError) error).getField(), error.getDefaultMessage()));
         return ResultData.setResult(ResultCodeEnum.PARAM_ERROR).data(errors);

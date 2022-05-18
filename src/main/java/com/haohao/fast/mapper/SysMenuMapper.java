@@ -2,6 +2,9 @@ package com.haohao.fast.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.haohao.fast.domain.SysMenuEntity;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author haohao
@@ -11,4 +14,11 @@ import com.haohao.fast.domain.SysMenuEntity;
  */
 public interface SysMenuMapper extends BaseMapper<SysMenuEntity> {
 
+    /**
+     * 查询菜单根据角色ids
+     *
+     * @param roleIds 角色ids
+     * @return 权限集合
+     */
+    List<SysMenuEntity> listMenuByRoleIds(@Param("roleIds") Long[] roleIds);
 }

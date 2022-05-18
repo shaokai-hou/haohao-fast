@@ -1,32 +1,29 @@
 package com.haohao.fast.security;
 
-import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haohao.fast.common.result.ResultCodeEnum;
 import com.haohao.fast.common.result.ResultData;
+import com.haohao.fast.util.JacksonUtils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 无权限访问处理
+ * 无权限访问
+ * 当用户尝试访问需要权限的资源、而不提供Token或者Token过期、错误
  *
  * @author haohao
  */
-@Service
+@Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
-        String msg = StrUtil.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        ResultData resultData = ResultData.setResult(ResultCodeEnum.UNAUTHORIZED).data(msg);
-        response.getWriter().print(new ObjectMapper().writeValueAsString(resultData));
+        response.getWriter().print(JacksonUtils.toJsonString(ResultData.setResult(ResultCodeEnum.UNAUTHORIZED)));
     }
 }

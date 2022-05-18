@@ -5,22 +5,45 @@
 <mapper namespace="com.haohao.fast.mapper.SysRoleMapper">
 
     <resultMap id="BaseResultMap" type="com.haohao.fast.domain.SysRoleEntity">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="remark" column="remark" jdbcType="VARCHAR"/>
-            <result property="deleted" column="deleted" jdbcType="INTEGER"/>
-            <result property="version" column="version" jdbcType="INTEGER"/>
-            <result property="creator" column="creator" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updater" column="updater" jdbcType="INTEGER"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="deleted" column="deleted" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="creator" column="creator" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updater" column="updater" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,description,
+        id
+        ,deleted,name,description,
         remark,deleted,version,
         creator,create_time,updater,
         update_time
     </sql>
+
+    <select id="listRoleByUserId" resultType="com.haohao.fast.domain.SysRoleEntity">
+        SELECT m.id,
+               m.NAME,
+               m.description,
+               m.deleted,
+               su.id,
+               su.username,
+               su.PASSWORD,
+               su.nickname,
+               su.state,
+               su.phone
+        FROM sys_role m
+                 INNER JOIN sys_user_role sur ON sur.role_id = m.id
+            AND sur.deleted = 0
+                 INNER JOIN sys_user su ON sur.user_id = su.id
+            AND su.deleted = 0
+        WHERE m.deleted = 0
+          and su.id = #{userId}
+    </select>
+
+
 </mapper>

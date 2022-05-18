@@ -1,13 +1,14 @@
-package com.haohao.fast.service;
+package com.haohao.fast.security;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.haohao.fast.common.result.ResultCodeEnum;
 import com.haohao.fast.exception.BaseException;
-import com.haohao.fast.security.UserDetailsImpl;
+import com.haohao.fast.security.user.UserDetailsImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -16,8 +17,8 @@ import java.util.Set;
  * ss SpringSecurity
  * @author haohao
  */
-@Service(value = "ss")
-public class PermissionService {
+@Component(value = "ss")
+public class PermissionServiceImpl {
 
     /**
      * 所有权限标识

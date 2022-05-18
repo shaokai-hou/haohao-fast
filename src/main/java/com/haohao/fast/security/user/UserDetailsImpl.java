@@ -1,4 +1,4 @@
-package com.haohao.fast.security;
+package com.haohao.fast.security.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.haohao.fast.common.constant.StatusConstant;
@@ -14,12 +14,21 @@ import java.util.Set;
 /**
  * @author haohao
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDetailsImpl extends SysUserEntity implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
+
+    /**
+     * token唯一标识
+     */
+    private String uuid;
+
+    /**
+     * 用户Info
+     */
+    private SysUserEntity sysUserEntity;
 
     /**
      * 用户角色列表
@@ -40,13 +49,13 @@ public class UserDetailsImpl extends SysUserEntity implements UserDetails {
     @Override
     @JsonIgnore
     public String getPassword() {
-        return super.getPassword();
+        return sysUserEntity.getPassword();
     }
 
     @Override
     @JsonIgnore
     public String getUsername() {
-        return super.getUsername();
+        return sysUserEntity.getUsername();
     }
 
     @Override
@@ -70,6 +79,6 @@ public class UserDetailsImpl extends SysUserEntity implements UserDetails {
     @Override
     @JsonIgnore
     public boolean isEnabled() {
-        return Objects.equals(super.getState(), StatusConstant.ENABLE);
+        return Objects.equals(sysUserEntity.getState(), StatusConstant.ENABLE);
     }
 }

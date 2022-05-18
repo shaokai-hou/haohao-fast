@@ -23,7 +23,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <jjwt.veersion>0.9.1</jjwt.veersion>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <hutools-version>5.8.0</hutools-version>
         <guava.version>29.0-jre</guava.version>
@@ -101,11 +100,6 @@
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>${mybatis.plus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jjwt.veersion}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>

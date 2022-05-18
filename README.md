@@ -1,11 +1,11 @@
 # haohao-fast
 
-> springboot
-> mybatis-plus
-> security
-> swagger3
-> mysql
-> redis
-> rabbitmq
-> elasticsearch
+1.springboot
+2.mybatis-plus
+3.security
+4.swagger3
+5.mysql
+6.redis
+7.rabbitmq
+8.elasticsearch
 

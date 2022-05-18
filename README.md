@@ -1,2 +1,4 @@
 # haohao-fast
-springboot
+
+springboot+security+swagger3+mysql+redis+rabbitmq+elasticsearch
+

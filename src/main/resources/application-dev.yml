@@ -1,0 +1,84 @@
+server:
+  port: 1010
+  servlet:
+    context-path: /fast
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  datasource:
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/haohao-fast?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+          username: root
+          password: root
+        slave:
+          url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+          username: root
+          password: root
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 10000ms
+    database: 1
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+  rabbitmq:
+    addresses: localhost
+    port: 15672
+    username: guest
+    password: guest
+    virtual-host: /
+    # 手动确认消息
+    listener:
+      simple:
+        acknowledge-mode: manual
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.haohao.fast.domain
+  global-config:
+    banner: false
+    db-config:
+      # 主键生成策略
+      id-type: auto
+      # 逻辑删除
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+      # 可以更新null值
+      update-strategy: ignored
+
+logging:
+  file:
+    path: logs
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+
+jwt:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥
+  secret: abcdefghijklmnopqrstuvwxyz
+  # 令牌有效期（默认30分钟）
+  expireTime: 10
+  # 令牌前缀
+  prefix: Bearer_

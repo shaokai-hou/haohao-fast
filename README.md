@@ -1,4 +1,11 @@
 # haohao-fast
 
-springboot+security+swagger3+mysql+redis+rabbitmq+elasticsearch
+> springboot
+> mybatis-plus
+> security
+> swagger3
+> mysql
+> redis
+> rabbitmq
+> elasticsearch
 

@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class SysUserController extends BaseController<SysUserEntity> {
 
     @ApiOperation("查询用户列表")
     @GetMapping("/list")
-    @PreAuthorize("@ss.hasPermission('system:user:list')")
+    @PreAuthorize("@ss.hasRole('dev')")
     public ResultData list(SysUserEntity sysUserEntity) {
         return ResultData.success().data(sysUserService.list(new QueryWrapper<>(sysUserEntity)));
     }
@@ -43,14 +44,15 @@ public class SysUserController extends BaseController<SysUserEntity> {
 
     @ApiOperation("添加用户")
     @PostMapping
-    @PreAuthorize("@ss.hasPermission('system:user:save')")
+    @PreAuthorize("@ss.hasRole('dev')")
     public ResultData save(@RequestBody @Validated SysUserEntity sysUserEntity) {
+        sysUserEntity.setPassword(new BCryptPasswordEncoder().encode(sysUserEntity.getPassword()));
         return ResultData.flag(sysUserService.save(sysUserEntity));
     }
 
     @ApiOperation("修改用户")
     @PutMapping
-    @PreAuthorize("@ss.hasPermission('system:user:update')")
+    @PreAuthorize("@ss.hasRole('dev')")
     public ResultData update(@RequestBody @Validated SysUserEntity sysUserEntity) {
         return ResultData.flag(sysUserService.updateById(sysUserEntity));
     }

@@ -3,6 +3,8 @@ package com.haohao.fast.exception;
 import com.haohao.fast.common.result.ResultCodeEnum;
 import com.haohao.fast.common.result.ResultData;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,13 +23,16 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionConfig {
 
-
     /**
      * 通用异常处理方法
      **/
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ResultData error(Exception e) {
+    public ResultData error(Exception e) throws Exception {
+        // 将springSecurity的异常交给对应处理器去处理
+        if (e instanceof AccessDeniedException || e instanceof AuthenticationException) {
+            throw e;
+        }
         log.error("全局异常信息 \n", e);
         return ResultData.error().data(e.getMessage());
     }

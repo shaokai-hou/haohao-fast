@@ -51,21 +51,6 @@ public class JacksonUtils {
     }
 
     /**
-     * Java对象转byte数组
-     *
-     * @param object object
-     * @return byte[]
-     */
-    public static byte[] toJsonBytes(Object object) {
-        try {
-            return objectMapper.writeValueAsBytes(object);
-        } catch (JsonProcessingException e) {
-            log.error("The JacksonUtil toJsonBytes is error : \n", e);
-            throw new RuntimeException();
-        }
-    }
-
-    /**
      * JSON字符串转对象
      *
      * @param json  json

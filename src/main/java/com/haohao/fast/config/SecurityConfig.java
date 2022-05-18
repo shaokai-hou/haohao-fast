@@ -72,7 +72,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 // 放行登录方法
                 .antMatchers("/api/auth/login").permitAll()
-                .antMatchers("/api/auth/code").permitAll()
                 // 其他请求都需要认证后才能访问
                 .anyRequest().authenticated()
                 .and()

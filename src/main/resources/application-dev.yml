@@ -79,6 +79,6 @@ jwt:
   # 令牌密钥
   secret: abcdefghijklmnopqrstuvwxyz
   # 令牌有效期（默认30分钟）
-  expireTime: 2
+  expireTime: 10
   # 令牌前缀
   prefix: Bearer_

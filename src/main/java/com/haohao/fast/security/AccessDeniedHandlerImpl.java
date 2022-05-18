@@ -21,11 +21,11 @@ import java.io.IOException;
  */
 @Component
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
-        String msg = StrUtil.format("资源路径：{}", request.getRequestURI());
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        response.getWriter().print(JacksonUtils.toJsonString(ResultData.setResult(ResultCodeEnum.FORBIDDEN).data(msg)));
+        response.getWriter().print(JacksonUtils.toJsonString(ResultData.setResult(ResultCodeEnum.FORBIDDEN)));
     }
 }

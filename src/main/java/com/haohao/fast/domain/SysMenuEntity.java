@@ -36,9 +36,9 @@ public class SysMenuEntity extends BaseEntity {
     private String menuName;
 
     /**
-     * 菜单类型
+     * 菜单类型（M：目录｜C：菜单｜P：权限）
      */
-    private Integer menuType;
+    private String menuType;
 
     /**
      * 权限标识

@@ -10,7 +10,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,15 +43,14 @@ public class SysUserController extends BaseController<SysUserEntity> {
 
     @ApiOperation("添加用户")
     @PostMapping
-    @PreAuthorize("@ss.hasRole('dev')")
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
     public ResultData save(@RequestBody @Validated SysUserEntity sysUserEntity) {
-        sysUserEntity.setPassword(new BCryptPasswordEncoder().encode(sysUserEntity.getPassword()));
-        return ResultData.flag(sysUserService.save(sysUserEntity));
+        return sysUserService.saveUser(sysUserEntity);
     }
 
     @ApiOperation("修改用户")
     @PutMapping
-    @PreAuthorize("@ss.hasRole('dev')")
+    @PreAuthorize("@ss.hasRole('dev,test')")
     public ResultData update(@RequestBody @Validated SysUserEntity sysUserEntity) {
         return ResultData.flag(sysUserService.updateById(sysUserEntity));
     }

@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 判断不为空、指定字符串开头
         if (StrUtil.isNotBlank(token) && StrUtil.startWith(token, jwtProperties.getPrefix())) {
             // 获取真实token、验证token
-            String realToken = token.substring(jwtProperties.getPrefix().length());
+            String realToken = token.substring(jwtProperties.getPrefix().length()).trim();
             if (JWTUtil.verify(realToken, jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8))) {
                 // token获取userId
                 String uuid = (String) JWTUtil.parseToken(realToken).getPayload("uuid");

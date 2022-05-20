@@ -33,7 +33,7 @@ public class SysRoleController extends BaseController<SysRoleEntity> {
 
     @ApiOperation("查询角色列表分页")
     @GetMapping("/page")
-    @PreAuthorize("@ss.hasPermission('system:user:page')")
+    @PreAuthorize("@ss.hasPermission('system:role:page')")
     public ResultData page(SysRoleEntity sysRoleEntity) {
         Page<SysRoleEntity> page = sysRoleService.page(getPage(), new QueryWrapper<>(sysRoleEntity));
         return ResultData.success().data(page);

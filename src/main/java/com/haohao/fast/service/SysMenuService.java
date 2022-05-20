@@ -1,5 +1,6 @@
 package com.haohao.fast.service;
 
+import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.haohao.fast.domain.SysMenuEntity;
 
@@ -14,8 +15,16 @@ public interface SysMenuService extends IService<SysMenuEntity> {
 
     /**
      * 查询菜单根据角色ids
+     *
      * @param roleIds 角色ids
      * @return 权限集合
      */
     List<SysMenuEntity> listMenuByRoleIds(Long[] roleIds);
+
+    /**
+     * 查询菜单树结构
+     *
+     * @return List<Tree < Integer>>
+     */
+    List<Tree<Integer>> listMenuTree();
 }

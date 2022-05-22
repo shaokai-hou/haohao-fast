@@ -1,12 +1,19 @@
 package com.haohao.fast.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.jwt.JWTUtil;
+import com.haohao.fast.common.constant.RedisConstant;
 import com.haohao.fast.common.result.ResultData;
+import com.haohao.fast.domain.param.LoginParam;
+import com.haohao.fast.domain.router.Router;
 import com.haohao.fast.properties.JwtProperties;
 import com.haohao.fast.security.user.UserDetailsImpl;
 import com.haohao.fast.service.AuthService;
+import com.haohao.fast.service.SysMenuService;
+import com.haohao.fast.service.SysRoleService;
 import com.haohao.fast.util.JacksonUtils;
+import com.haohao.fast.util.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -22,8 +29,10 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author haohao
@@ -36,16 +45,19 @@ public class AuthServiceImpl implements AuthService {
     final AuthenticationManager authenticationManager;
     final StringRedisTemplate stringRedisTemplate;
     final JwtProperties jwtProperties;
+    final SysMenuService sysMenuService;
+    final SysRoleService sysRoleService;
 
     /**
      * 登录
      *
-     * @param username 用户名
-     * @param password 密码
+     * @param loginParam 登录参数
      * @return 登录结果
      */
     @Override
-    public ResultData login(String username, String password) {
+    public ResultData login(LoginParam loginParam) {
+        String username = loginParam.getUsername();
+        String password = loginParam.getPassword();
         try {
             // 认证，该方法会自己调用UserDetailsServiceImpl.loadUserByUsername()
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -55,18 +67,21 @@ public class AuthServiceImpl implements AuthService {
             UserDetailsImpl principal = (UserDetailsImpl) authenticate.getPrincipal();
             // 签发Token
             HashMap<String, Object> payload = new HashMap<>(1);
-            payload.put("uuid", principal.getUuid());
+            payload.put("userId", principal.getUserId());
             String token = JWTUtil.createToken(payload, jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8));
             // 放入缓存
-            stringRedisTemplate.opsForValue().set(principal.getUuid(), JacksonUtils.toJsonString(principal), jwtProperties.getExpireTime(), TimeUnit.MINUTES);
+            stringRedisTemplate.opsForValue().set(RedisConstant.LOGIN_KEY + principal.getUserId(), JacksonUtils.toJsonString(principal), jwtProperties.getExpireTime(), TimeUnit.MINUTES);
             // 返回成功
             Map<String, Object> result = new HashMap<>(1);
             result.put("datetime", DateUtil.now());
-            result.put("uuid", principal.getUuid());
             result.put("token", token);
             return ResultData.success().data(result);
-        } catch (UsernameNotFoundException | DisabledException | BadCredentialsException e) {
-            return ResultData.error().message(e.getMessage());
+        } catch (UsernameNotFoundException e) {
+            return ResultData.error().message("用户不存在！");
+        } catch (BadCredentialsException e) {
+            return ResultData.error().message("密码错误！");
+        } catch (DisabledException e) {
+            return ResultData.error().message("账号被封禁！");
         } catch (AuthenticationException e) {
             log.error("login AuthenticationException is : \n", e);
             return ResultData.error().message(e.getMessage());
@@ -74,6 +89,30 @@ public class AuthServiceImpl implements AuthService {
             log.error("login Exception is : \n", e);
             return ResultData.error().message(e.getMessage());
         }
+    }
+
+    /**
+     * 获取当前登录用户信息
+     *
+     * @return ResultData
+     */
+    @Override
+    public ResultData getInfo() {
+        UserDetailsImpl userDetails = SecurityUtils.getUserDetails();
+        return ResultData.success().data(userDetails);
+    }
+
+    /**
+     * 获取当前登录用户路由信息
+     *
+     * @return ResultData
+     */
+    @Override
+    public ResultData getRouters() {
+        Long userId = SecurityUtils.getUserId();
+        List<Tree<Integer>> trees = sysMenuService.listMenuTree();
+        List<Router> routers = trees.stream().map(Router::new).collect(Collectors.toList());
+        return ResultData.success().data(routers);
     }
 
     /**
@@ -85,7 +124,7 @@ public class AuthServiceImpl implements AuthService {
     public ResultData logout() {
         // 删除缓存
         UserDetailsImpl principal = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        stringRedisTemplate.delete(principal.getUuid());
+        stringRedisTemplate.delete(principal.getUserId());
         // 清空上下文
         SecurityContextHolder.clearContext();
         return ResultData.success();

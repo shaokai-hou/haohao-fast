@@ -18,4 +18,19 @@ public interface SysUserService extends IService<SysUserEntity> {
      * @return 保存结果
      */
     ResultData saveUser(SysUserEntity sysUserEntity);
+
+    /**
+     * 更新用户
+     *
+     * @param sysUserEntity 用户实体
+     * @return ResultData
+     */
+    ResultData updateUser(SysUserEntity sysUserEntity);
+
+    /**
+     * 更新用户状态
+     * @param userId 用户Id
+     * @return ResultData
+     */
+    ResultData updateState(Long userId);
 }

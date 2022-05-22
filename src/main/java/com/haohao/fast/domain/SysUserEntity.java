@@ -25,29 +25,27 @@ public class SysUserEntity extends BaseEntity {
     @TableId
     @ApiModelProperty(value = "主键", required = true)
     private Long id;
-
     @ApiModelProperty(value = "用户名", required = true)
     @NotNull(message = "用户名不能为空")
     private String username;
-
     /**
      * 用户密码
      */
     private String password;
-
     /**
      * 用户昵称
      */
     private String nickname;
-
     /**
      * 状态:(0:正常 1:禁用)
      */
     private Integer state;
-
     /**
      * 手机号
      */
     private String phone;
-
+    /**
+     * 头像
+     */
+    private String avatar;
 }

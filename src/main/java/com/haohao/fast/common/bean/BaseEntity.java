@@ -1,6 +1,7 @@
 package com.haohao.fast.common.bean;
 
 import com.baomidou.mybatisplus.annotation.Version;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;

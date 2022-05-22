@@ -5,7 +5,7 @@ package com.haohao.fast.common.constant;
  *
  * @author haohao
  */
-public class StatusConstant {
+public class StateConstant {
 
     /**
      * 启用

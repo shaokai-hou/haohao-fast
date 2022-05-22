@@ -1,7 +1,7 @@
 server:
   port: 1010
   servlet:
-    context-path: /fast
+    context-path: /
 
 spring:
   servlet:
@@ -81,4 +81,4 @@ jwt:
   # 令牌有效期（默认30分钟）
   expireTime: 30
   # 令牌前缀
-  prefix: Bearer
+  prefix: Bearer_

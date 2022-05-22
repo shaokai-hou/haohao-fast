@@ -2,6 +2,7 @@ package com.haohao.fast.security;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.jwt.JWTUtil;
+import com.haohao.fast.common.constant.RedisConstant;
 import com.haohao.fast.properties.JwtProperties;
 import com.haohao.fast.security.user.UserDetailsImpl;
 import com.haohao.fast.util.JacksonUtils;
@@ -41,10 +42,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String realToken = token.substring(jwtProperties.getPrefix().length()).trim();
             if (JWTUtil.verify(realToken, jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8))) {
                 // token获取userId
-                String uuid = (String) JWTUtil.parseToken(realToken).getPayload("uuid");
-                if (StrUtil.isNotBlank(uuid) && Boolean.TRUE.equals(stringRedisTemplate.hasKey(uuid))) {
+                String userId = (String) JWTUtil.parseToken(realToken).getPayload("userId");
+                if (StrUtil.isNotBlank(userId) && Boolean.TRUE.equals(stringRedisTemplate.hasKey(RedisConstant.LOGIN_KEY + userId))) {
                     // 查询缓存用户信息
-                    String cacheStr = stringRedisTemplate.opsForValue().get(uuid);
+                    String cacheStr = stringRedisTemplate.opsForValue().get(RedisConstant.LOGIN_KEY + userId);
                     UserDetailsImpl userDetails = JacksonUtils.parseObject(cacheStr, UserDetailsImpl.class);
                     // 组装authentication对象，构造参数是Principal Credentials 与 Authorities
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());

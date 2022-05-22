@@ -34,6 +34,7 @@
         m.deleted,
         sm.id,
         sm.parent_id,
+        sm.menu_name,
         sm.permission
         FROM sys_role m
         INNER JOIN sys_role_menu srm ON srm.role_id = m.id

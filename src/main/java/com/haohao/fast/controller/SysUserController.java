@@ -41,6 +41,14 @@ public class SysUserController extends BaseController<SysUserEntity> {
         return ResultData.success().data(page);
     }
 
+    @ApiOperation("通过用户ID获取用户信息")
+    @GetMapping("/{userId}")
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
+    public ResultData getInfo(@PathVariable("userId") Long userId) {
+        SysUserEntity user = sysUserService.getById(userId);
+        return ResultData.success().data(user);
+    }
+
     @ApiOperation("添加用户")
     @PostMapping
     @PreAuthorize("@ss.hasAnyRole('dev,test')")
@@ -50,9 +58,16 @@ public class SysUserController extends BaseController<SysUserEntity> {
 
     @ApiOperation("修改用户")
     @PutMapping
-    @PreAuthorize("@ss.hasRole('dev,test')")
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
     public ResultData update(@RequestBody @Validated SysUserEntity sysUserEntity) {
-        return ResultData.flag(sysUserService.updateById(sysUserEntity));
+        return sysUserService.updateUser(sysUserEntity);
+    }
+
+    @ApiOperation("设置用户状态")
+    @PutMapping("/state/{userId}")
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
+    public ResultData updateState(@PathVariable("userId") Long userId) {
+        return sysUserService.updateState(userId);
     }
 
 }

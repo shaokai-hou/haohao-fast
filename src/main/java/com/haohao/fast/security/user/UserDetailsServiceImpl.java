@@ -45,7 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<String> permissions = menuEntityList.stream().map(SysMenuEntity::getPermission).collect(Collectors.toSet());
         return UserDetailsImpl.builder()
                 .sysUserEntity(sysUserEntity)
-                .uuid(IdUtil.fastUUID())
+                .userId(String.valueOf(sysUserEntity.getId()))
                 .roles(roleNames)
                 .permissions(permissions)
                 .build();

@@ -1,6 +1,7 @@
 package com.haohao.fast.service.impl;
 
 import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -40,16 +41,16 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuEntity
      */
     @Override
     public List<Tree<Integer>> listMenuTree() {
-        LambdaQueryWrapper<SysMenuEntity> query = new LambdaQueryWrapper<SysMenuEntity>()
-                .in(SysMenuEntity::getMenuType, "M", "C")
-                .orderByDesc(SysMenuEntity::getSort);
-        List<SysMenuEntity> menuList = getBaseMapper().selectList(query);
+        List<SysMenuEntity> menuList = getBaseMapper().selectList(new QueryWrapper<>());
         return TreeUtil.build(menuList, 0, (treeNode, tree) -> {
             tree.setId(treeNode.getId().intValue());
             tree.setParentId(treeNode.getParentId().intValue());
             tree.setName(treeNode.getMenuName());
+            tree.setWeight(treeNode.getSort());
             tree.put("path", treeNode.getPath());
             tree.put("component", treeNode.getComponent());
+            tree.put("menuType", treeNode.getMenuType());
+            tree.put("permission", treeNode.getPermission());
         });
     }
 }

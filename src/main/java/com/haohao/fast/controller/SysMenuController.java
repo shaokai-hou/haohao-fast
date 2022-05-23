@@ -25,12 +25,9 @@ public class SysMenuController {
 
     @GetMapping("/tree")
     @ApiOperation("查询所有菜单（树结构）")
-    @PreAuthorize("@ss.hasRole('test')")
+    @PreAuthorize("@ss.hasAnyRole('test,dev')")
     public ResultData menuTreeAll() {
         return ResultData.success().data(sysMenuService.listMenuTree());
     }
 
-    public ResultData menuTreeByRoles() {
-        return ResultData.success();
-    }
 }

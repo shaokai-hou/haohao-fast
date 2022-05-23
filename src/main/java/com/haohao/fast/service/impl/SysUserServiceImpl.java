@@ -2,18 +2,25 @@ package com.haohao.fast.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.haohao.fast.common.constant.RedisConstant;
 import com.haohao.fast.common.constant.StateConstant;
 import com.haohao.fast.common.result.ResultData;
 import com.haohao.fast.domain.SysUserEntity;
+import com.haohao.fast.domain.SysUserRoleEntity;
 import com.haohao.fast.mapper.SysUserMapper;
+import com.haohao.fast.mapper.SysUserRoleMapper;
 import com.haohao.fast.service.SysMenuService;
 import com.haohao.fast.service.SysRoleService;
+import com.haohao.fast.service.SysUserRoleService;
 import com.haohao.fast.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,6 +35,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 
     final SysRoleService roleService;
     final SysMenuService sysMenuService;
+    final SysUserRoleService sysUserRoleService;
     final StringRedisTemplate redisTemplate;
 
     /**
@@ -37,6 +45,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
      * @return 保存结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ResultData saveUser(SysUserEntity sysUserEntity) {
         // 用户名（username）唯一验证
         SysUserEntity userInfo = getBaseMapper().selectOne(new LambdaQueryWrapper<SysUserEntity>().eq(SysUserEntity::getUsername, sysUserEntity.getUsername().trim()));
@@ -44,7 +53,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
             return ResultData.error().message("用户名已存在");
         }
         sysUserEntity.setPassword(new BCryptPasswordEncoder().encode(sysUserEntity.getPassword()));
-        return getBaseMapper().insert(sysUserEntity) > 0 ? ResultData.success() : ResultData.error();
+        // 添加用户
+        if (this.save(sysUserEntity)) {
+            // 保存角色
+            List<SysUserRoleEntity> userRoleEntityList = new ArrayList<>();
+            sysUserEntity.getRoleIds().forEach(item -> userRoleEntityList.add(new SysUserRoleEntity(null, sysUserEntity.getId(), item)));
+            return ResultData.flag(sysUserRoleService.saveBatch(userRoleEntityList));
+        }
+        return ResultData.error();
     }
 
     /**
@@ -64,7 +80,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
             return ResultData.error().message("用户名已存在");
         }
         sysUserEntity.setPassword(new BCryptPasswordEncoder().encode(sysUserEntity.getPassword()));
-        return getBaseMapper().insert(sysUserEntity) > 0 ? ResultData.success() : ResultData.error();
+        return getBaseMapper().updateById(sysUserEntity) > 0 ? ResultData.success() : ResultData.error();
     }
 
     /**
@@ -77,7 +93,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
     public ResultData updateState(Long userId) {
         SysUserEntity sysUser = this.getBaseMapper().selectById(userId);
         sysUser.setState(StateConstant.ENABLE.equals(sysUser.getState()) ? StateConstant.DISABLE : StateConstant.ENABLE);
-        redisTemplate.delete("login/" + userId);
+        redisTemplate.delete(RedisConstant.LOGIN_KEY + userId);
         return ResultData.flag(this.getBaseMapper().updateById(sysUser) > 0);
     }
 

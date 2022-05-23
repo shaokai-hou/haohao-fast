@@ -1,16 +1,16 @@
 import request from '@/utils/request'
 
-export function getRolePage(query) {
+export function getMenuTree(query) {
   return request({
-    url: '/api/role/page',
+    url: '/api/menu/tree',
     method: 'get',
     params: query
   })
 }
 
-export function getRoleList(query) {
+export function getMenuList(query) {
   return request({
-    url: '/api/role/list',
+    url: '/api/menu/list',
     method: 'get',
     params: query
   })

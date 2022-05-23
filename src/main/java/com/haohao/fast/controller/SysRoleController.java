@@ -26,14 +26,14 @@ public class SysRoleController extends BaseController<SysRoleEntity> {
 
     @ApiOperation("查询角色列表")
     @GetMapping("/list")
-    @PreAuthorize("@ss.hasRole('dev')")
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
     public ResultData list(SysRoleEntity sysRoleEntity) {
         return ResultData.success().data(sysRoleService.list(new QueryWrapper<>(sysRoleEntity)));
     }
 
     @ApiOperation("查询角色列表分页")
     @GetMapping("/page")
-    @PreAuthorize("@ss.hasPermission('system:role:page')")
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
     public ResultData page(SysRoleEntity sysRoleEntity) {
         Page<SysRoleEntity> page = sysRoleService.page(getPage(), new QueryWrapper<>(sysRoleEntity));
         return ResultData.success().data(page);
@@ -41,7 +41,7 @@ public class SysRoleController extends BaseController<SysRoleEntity> {
 
     @ApiOperation("添加角色")
     @PostMapping
-    @PreAuthorize("@ss.hasAnyRole('dev,test')")
+    @PreAuthorize("@ss.hasPermission('system:role:save')")
     public ResultData save(@RequestBody @Validated SysRoleEntity sysRoleEntity) {
         return ResultData.flag(sysRoleService.save(sysRoleEntity));
     }

@@ -1,5 +1,6 @@
 package com.haohao.fast.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.haohao.fast.common.bean.BaseEntity;
@@ -8,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author haohao
@@ -48,4 +50,9 @@ public class SysUserEntity extends BaseEntity {
      * 头像
      */
     private String avatar;
+    /**
+     * 角色ids
+     */
+    @TableField(exist = false)
+    private List<Long> roleIds;
 }

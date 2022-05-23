@@ -4,14 +4,12 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.map.MapUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.haohao.fast.domain.SysMenuEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -50,7 +48,7 @@ public class Router {
      */
     private List<Router> children;
 
-    public Router(Tree<Integer> tree) {
+    public Router(Tree<Long> tree) {
         this.path = MapUtil.get(tree, "path", String.class);
         this.name = tree.getName().toString();
         this.component = MapUtil.get(tree, "component", String.class);

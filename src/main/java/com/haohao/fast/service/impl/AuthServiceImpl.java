@@ -2,9 +2,13 @@ package com.haohao.fast.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.jwt.JWTUtil;
 import com.haohao.fast.common.constant.RedisConstant;
 import com.haohao.fast.common.result.ResultData;
+import com.haohao.fast.domain.SysMenuEntity;
+import com.haohao.fast.domain.SysRoleEntity;
 import com.haohao.fast.domain.param.LoginParam;
 import com.haohao.fast.domain.router.Router;
 import com.haohao.fast.properties.JwtProperties;
@@ -110,7 +114,20 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResultData getRouters() {
         Long userId = SecurityUtils.getUserId();
-        List<Tree<Integer>> trees = sysMenuService.listMenuTree();
+        List<SysRoleEntity> roles = sysRoleService.listRoleByUserId(userId);
+        Long[] roleIds = roles.stream().map(SysRoleEntity::getId).toArray(Long[]::new);
+        List<SysMenuEntity> menus = sysMenuService.listMenuByRoleIds(roleIds);
+        String[] menuType = {"M", "C"};
+        menus = menus.stream().filter(item -> ArrayUtil.contains(menuType, item.getMenuType())).collect(Collectors.toList());
+        // 构建树结构
+        List<Tree<Long>> trees = TreeUtil.build(menus, 0L, (treeNode, tree) -> {
+            tree.setId(treeNode.getId());
+            tree.setParentId(treeNode.getParentId());
+            tree.setName(treeNode.getMenuName());
+            tree.setWeight(treeNode.getSort());
+            tree.put("path", treeNode.getPath());
+            tree.put("component", treeNode.getComponent());
+        });
         List<Router> routers = trees.stream().map(Router::new).collect(Collectors.toList());
         return ResultData.success().data(routers);
     }

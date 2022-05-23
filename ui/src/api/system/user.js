@@ -16,6 +16,22 @@ export function getUserList(query) {
   })
 }
 
+export function saveUser(data) {
+  return request({
+    url: '/api/user',
+    method: 'post',
+    data: data
+  })
+}
+
+export function updateUser(data) {
+  return request({
+    url: '/api/user',
+    method: 'put',
+    data: data
+  })
+}
+
 export function updateState(userId) {
   return request({
     url: '/api/user/state/' + userId,

@@ -1,8 +1,7 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { Message, MessageBox } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
-import da from 'element-ui/src/locale/lang/da'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
@@ -30,12 +29,24 @@ service.interceptors.request.use(config => {
 // 响应拦截器
 service.interceptors.response.use(response => {
     // 返回数据
-    const data = response.data
-    if (data.code !== 200) {
-      Message({ message: data.message, type: 'error', duration: 5 * 1000 })
-      return Promise.reject(new Error(data.message))
+    const result = response.data
+    if (result.code === 401) {
+      MessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
+          confirmButtonText: '重新登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        store.dispatch('user/logout').then(() => {
+          location.href = '/'
+        })
+      })
+      return Promise.reject
+    } else if (result.code !== 200) {
+      Message({ message: result.message, type: 'error', duration: 5 * 1000 })
+      return Promise.reject(new Error(result.message))
     } else {
-      return data
+      return result
     }
   },
   error => {

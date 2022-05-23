@@ -28,14 +28,18 @@
     </sql>
 
     <select id="listMenuByRoleIds" resultType="com.haohao.fast.domain.SysMenuEntity">
-        SELECT m.id,
+        SELECT
         m.NAME,
         m.description,
         m.deleted,
         sm.id,
         sm.parent_id,
         sm.menu_name,
-        sm.permission
+        sm.menu_type,
+        sm.path,
+        sm.component,
+        sm.permission,
+        sm.sort
         FROM sys_role m
         INNER JOIN sys_role_menu srm ON srm.role_id = m.id
         AND srm.deleted = 0

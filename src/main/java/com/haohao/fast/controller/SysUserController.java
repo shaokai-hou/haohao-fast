@@ -45,8 +45,7 @@ public class SysUserController extends BaseController<SysUserEntity> {
     @GetMapping("/{userId}")
     @PreAuthorize("@ss.hasAnyRole('dev,test')")
     public ResultData getInfo(@PathVariable("userId") Long userId) {
-        SysUserEntity user = sysUserService.getById(userId);
-        return ResultData.success().data(user);
+        return sysUserService.getInfo(userId);
     }
 
     @ApiOperation("添加用户")

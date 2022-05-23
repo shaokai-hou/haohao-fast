@@ -17,7 +17,7 @@ import '@/permission' // permission control
 
 // 分页组件
 import Pagination from '@/components/Pagination/Index'
-// 角色选择
+// 角色选择组件
 import RoleSelect from '@/components/RoleSelect/Index'
 // 全局组件挂载
 Vue.component('Pagination', Pagination)
@@ -28,6 +28,8 @@ Vue.component('RoleSelect', RoleSelect)
 // 如果想要中文版 element-ui，按如下方式声明
 Vue.use(ElementUI)
 
+// 配置 dialog组件 组件点击遮罩层不关闭
+ElementUI.Dialog.props.closeOnClickModal.default = false
 Vue.config.productionTip = false
 
 new Vue({

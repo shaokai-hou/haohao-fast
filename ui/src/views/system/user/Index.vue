@@ -53,7 +53,7 @@
     </el-card>
 
     <Form :title="formDialog.title" :dialog-visible="formDialog.open" @close="formDialog.open = false"
-          :list="getList"
+          :entity="formDialog.entity" :list="getList"
     />
 
     <Detail/>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { getUserPage, updateState } from '@/api/system/user'
+import { getUserPage, getUserInfo, updateState } from '@/api/system/user'
 import Form from '@/views/system/user/Form'
 import Detail from '@/views/system/user/Detail'
 
@@ -82,7 +82,8 @@ export default {
       selection: [],
       formDialog: {
         open: false,
-        title: '表单'
+        title: '表单',
+        entity: {}
       }
     }
   },
@@ -103,7 +104,11 @@ export default {
       console.log(row)
     },
     handleEdit(row) {
-      console.log(row)
+      getUserInfo(row.id).then(res => {
+        this.formDialog.open = true
+        this.formDialog.title = '修改用户'
+        this.formDialog.entity = res.data
+      })
     },
     handleDelete(row) {
       console.log(row)

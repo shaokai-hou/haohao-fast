@@ -2,15 +2,14 @@
   <div class="app-container">
     <el-dialog :title="title" :visible.sync="dialogVisible" width="50%" :before-close="handleClose">
       <el-form ref="form" :model="form" :rules="rules" :inline="true" label-width="80px">
-
         <el-row>
           <el-col :span="12">
             <el-form-item label="用户名" prop="username">
-              <el-input v-model="form.username" size="small" placeholder="请输入用户名"></el-input>
+              <el-input v-model="form.username" size="small" placeholder="请输入用户名"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="密码" prop="password">
+            <el-form-item label="密码" prop="password" v-if="passwordFlag">
               <el-input v-model="form.password" size="small" placeholder="请输入密码"></el-input>
             </el-form-item>
           </el-col>
@@ -43,7 +42,7 @@
         </el-row>
 
         <el-row>
-          <el-form-item class="">
+          <el-form-item class="form-button">
             <el-button type="primary" size="small" @click="submitForm('ruleForm')">保存</el-button>
             <el-button type="info" size="small" @click="resetForm('ruleForm')">重置</el-button>
             <el-button type="danger" size="small" @click="handleClose">关闭</el-button>
@@ -66,6 +65,8 @@ export default {
         username: undefined,
         password: undefined,
         nickname: undefined,
+        phone: undefined,
+        email: undefined,
         roleIds: []
       },
       rules: {
@@ -82,13 +83,21 @@ export default {
         roleIds: [
           { required: true, message: '请选择用户角色', trigger: 'change' }
         ]
-      }
+      },
+      passwordFlag: true
     }
   },
   props: {
     title: { type: String, default: '表单' },
     dialogVisible: { type: Boolean, default: false },
-    list: { type: Function, require: true }
+    list: { type: Function, require: true },
+    entity: { type: Object }
+  },
+  watch: {
+    'entity.id'() {
+      this.form = this.entity
+      this.passwordFlag = false
+    }
   },
   methods: {
     handleClose() {
@@ -99,7 +108,9 @@ export default {
         if (valid) {
           if (typeof this.form.id !== 'undefined') {
             updateUser(this.form).then(res => {
-
+              console.log('res', res)
+              this.handleClose()
+              this.list()
             })
           } else {
             saveUser(this.form).then(res => {
@@ -119,5 +130,12 @@ export default {
 </script>
 
 <style scoped>
+.el-input ::v-deep {
+  width: 288px;
+}
 
+.form-button {
+  position: relative;
+  left: 150px;
+}
 </style>

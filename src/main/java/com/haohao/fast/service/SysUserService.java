@@ -12,6 +12,14 @@ import com.haohao.fast.domain.SysUserEntity;
 public interface SysUserService extends IService<SysUserEntity> {
 
     /**
+     * 根据用户ID获取用户信息
+     *
+     * @param userId 用户ID
+     * @return ResultData
+     */
+    ResultData getInfo(Long userId);
+
+    /**
      * 保存用户
      *
      * @param sysUserEntity 用户实体类
@@ -29,6 +37,7 @@ public interface SysUserService extends IService<SysUserEntity> {
 
     /**
      * 更新用户状态
+     *
      * @param userId 用户Id
      * @return ResultData
      */

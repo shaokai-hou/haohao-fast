@@ -16,6 +16,13 @@ export function getUserList(query) {
   })
 }
 
+export function getUserInfo(userId) {
+  return request({
+    url: '/api/user/' + userId,
+    method: 'get'
+  })
+}
+
 export function saveUser(data) {
   return request({
     url: '/api/user',

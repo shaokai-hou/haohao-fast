@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-select multiple collapse-tags v-model="selected" @change="change"
-               :placeholder="placeholder" size="small"
+               :placeholder="placeholder" size="small" :style="{width: width}"
     >
-      <el-option v-for="item in roleOptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
+      <el-option v-for="item in roleOptions" :key="item.id" :label="item.name" :value="item.id"/>
     </el-select>
   </div>
 </template>
@@ -23,7 +23,14 @@ export default {
     this.getRoleOptions()
   },
   props: {
-    placeholder: { type: String, default: '请选择角色' }
+    value: { type: Array },
+    placeholder: { type: String, default: '请选择角色' },
+    width: { type: String, default: '288px' }
+  },
+  watch: {
+    value(){
+      this.selected = this.value
+    }
   },
   methods: {
     /** 查询角色侯选项*/
@@ -34,7 +41,7 @@ export default {
     },
     /** change事件*/
     change() {
-      console.log('this.selected', this.selected)
+      console.log("change事件触发")
       this.$emit('input', this.selected)
     }
   }

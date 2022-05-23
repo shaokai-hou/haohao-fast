@@ -60,7 +60,6 @@ mybatis-plus:
       logic-delete-field: deleted
       logic-delete-value: 1
       logic-not-delete-value: 0
-
       # 可以更新null值
       update-strategy: ignored
 

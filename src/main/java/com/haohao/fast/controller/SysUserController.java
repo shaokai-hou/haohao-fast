@@ -28,7 +28,6 @@ public class SysUserController extends BaseController<SysUserEntity> {
 
     @ApiOperation("查询用户列表")
     @GetMapping("/list")
-    @PreAuthorize("@ss.hasRole('dev')")
     public ResultData list(SysUserEntity sysUserEntity) {
         return ResultData.success().data(sysUserService.list(new QueryWrapper<>(sysUserEntity)));
     }

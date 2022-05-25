@@ -19,9 +19,12 @@ import '@/permission' // permission control
 import Pagination from '@/components/Pagination/Index'
 // 角色选择组件
 import RoleSelect from '@/components/RoleSelect/Index'
+//
+import TextScroll from '@/components/TextScroll/Index'
 // 全局组件挂载
 Vue.component('Pagination', Pagination)
 Vue.component('RoleSelect', RoleSelect)
+Vue.component('TextScroll', TextScroll)
 
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })

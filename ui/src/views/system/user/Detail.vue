@@ -1,12 +1,21 @@
 <template>
   <div class="app-container">
-    详情
+    <el-dialog title="用户详情" :visible.sync="dialogVisible" width="50%" :before-close="handleClose">
+    </el-dialog>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Detail'
+  name: 'Detail',
+  props: {
+    dialogVisible: { type: Boolean, default: false }
+  },
+  methods: {
+    handleClose() {
+      this.$emit('close')
+    }
+  }
 }
 </script>
 

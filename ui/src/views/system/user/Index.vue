@@ -54,11 +54,13 @@
       />
     </el-card>
 
+    <!-- 用户FORM-->
     <Form :title="formDialog.title" :dialog-visible="formDialog.open" @close="formDialog.open = false"
           :entity="formDialog.entity" :list="getList"
     />
 
-    <Detail/>
+    <!-- 用户详情-->
+    <Detail :dialog-visible="detailDialog.open" @close="detailDialog.open = false"/>
   </div>
 </template>
 
@@ -87,6 +89,9 @@ export default {
         title: '表单',
         entity: {}
       },
+      detailDialog: {
+        open: false
+      },
       single: true,
       multiple: true
     }
@@ -108,6 +113,7 @@ export default {
     },
     handleInfo(row) {
       console.log(row)
+      this.detailDialog.open = true
     },
     handleEdit(row) {
       getUserInfo(row.id).then(res => {

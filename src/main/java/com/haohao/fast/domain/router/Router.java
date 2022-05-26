@@ -52,7 +52,7 @@ public class Router {
         this.path = MapUtil.get(tree, "path", String.class);
         this.name = tree.getName().toString();
         this.component = MapUtil.get(tree, "component", String.class);
-        this.meta = new Meta(tree.getName().toString(), "tree");
+        this.meta = new Meta(tree.getName().toString(), MapUtil.get(tree, "icon", String.class));
         this.children = CollUtil.isEmpty(tree.getChildren()) ?
                 new ArrayList<>() :
                 tree.getChildren().stream().map(Router::new).collect(Collectors.toList());

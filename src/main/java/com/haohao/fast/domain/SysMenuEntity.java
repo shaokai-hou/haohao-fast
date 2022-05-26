@@ -56,6 +56,10 @@ public class SysMenuEntity extends BaseEntity {
      */
     private Integer sort;
     /**
+     * 图标
+     */
+    private String icon;
+    /**
      * 子菜单
      */
     @TableField(exist = false)

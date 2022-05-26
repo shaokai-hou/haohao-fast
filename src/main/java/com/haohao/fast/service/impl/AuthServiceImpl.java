@@ -127,6 +127,7 @@ public class AuthServiceImpl implements AuthService {
             tree.setWeight(treeNode.getSort());
             tree.put("path", treeNode.getPath());
             tree.put("component", treeNode.getComponent());
+            tree.put("icon", treeNode.getIcon());
         });
         List<Router> routers = trees.stream().map(Router::new).collect(Collectors.toList());
         return ResultData.success().data(routers);

@@ -39,7 +39,8 @@
         sm.path,
         sm.component,
         sm.permission,
-        sm.sort
+        sm.sort,
+        sm.icon
         FROM sys_role m
         INNER JOIN sys_role_menu srm ON srm.role_id = m.id
         AND srm.deleted = 0

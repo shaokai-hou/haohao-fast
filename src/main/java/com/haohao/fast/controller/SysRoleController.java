@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.haohao.fast.common.bean.BaseController;
 import com.haohao.fast.common.result.ResultData;
 import com.haohao.fast.domain.SysRoleEntity;
+import com.haohao.fast.domain.param.DeleteRoleParam;
 import com.haohao.fast.service.SysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 /**
  * @author haohao
@@ -52,4 +55,12 @@ public class SysRoleController extends BaseController<SysRoleEntity> {
     public ResultData update(@RequestBody @Validated SysRoleEntity sysRoleEntity) {
         return ResultData.flag(sysRoleService.updateById(sysRoleEntity));
     }
+
+    @ApiOperation("删除角色")
+    @DeleteMapping
+    @PreAuthorize("@ss.hasRole('dev,test')")
+    public ResultData delete(DeleteRoleParam deleteRoleParam) {
+        return ResultData.flag(sysRoleService.removeBatchByIds(Arrays.asList(deleteRoleParam.getRoleIds())));
+    }
+
 }

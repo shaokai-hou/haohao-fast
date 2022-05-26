@@ -20,7 +20,7 @@
     <el-card shadow="hover" class="app-card">
       <div class="app-operation">
         <el-button type="success" size="small" @click="handleAdd">添加用户</el-button>
-        <el-button type="danger" size="small">批量删除用户</el-button>
+        <el-button type="danger" size="small" :disabled="multiple">批量删除用户</el-button>
         <el-button type="info" size="small">导入用户</el-button>
         <el-button type="warning" size="small">导出用户</el-button>
       </div>
@@ -29,7 +29,8 @@
         <el-table-column prop="username" align="center" label="账号" min-width="130"></el-table-column>
         <el-table-column prop="nickname" align="center" label="用户名" min-width="180"></el-table-column>
         <el-table-column prop="phone" align="center" label="手机号" min-width="180"></el-table-column>
-        <el-table-column prop="createTime" align="center" label="地址" min-width="180"></el-table-column>
+        <el-table-column prop="email" align="center" label="邮箱" min-width="180"></el-table-column>
+        <el-table-column prop="createTime" align="center" label="创建时间" min-width="180"></el-table-column>
         <el-table-column align="center" label="状态" min-width="180">
           <template slot-scope="props">
             <el-switch v-model="props.row.state" active-color="#ff4949" inactive-color="#13ce66"
@@ -42,7 +43,8 @@
           <template slot-scope="scope">
             <el-button @click="handleInfo(scope.row)" type="info" size="mini">查看</el-button>
             <el-button @click="handleEdit(scope.row)" type="primary" size="mini">编辑</el-button>
-            <el-button @click="handleDelete(scope.row)" type="danger" size="mini">删除</el-button>
+            <el-button v-if="scope.row.id !==1" @click="handleDelete(scope.row)" type="danger" size="mini">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -61,7 +63,7 @@
 </template>
 
 <script>
-import { getUserPage, getUserInfo, updateState } from '@/api/system/user'
+import { getUserPage, getUserInfo, updateState, deleteUser } from '@/api/system/user'
 import Form from '@/views/system/user/Form'
 import Detail from '@/views/system/user/Detail'
 
@@ -84,7 +86,9 @@ export default {
         open: false,
         title: '表单',
         entity: {}
-      }
+      },
+      single: true,
+      multiple: true
     }
   },
   mounted() {
@@ -99,6 +103,8 @@ export default {
     },
     handleSelectionChange(val) {
       this.selection = val
+      this.single = val.length !== 1
+      this.multiple = !val.length
     },
     handleInfo(row) {
       console.log(row)
@@ -111,7 +117,10 @@ export default {
       })
     },
     handleDelete(row) {
-      console.log(row)
+      deleteUser({ userIds: [row.id] }).then(() => {
+        this.$message.success('删除成功')
+        this.getList()
+      })
     },
     handleState(row) {
       updateState(row.id).then(res => {

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.haohao.fast.common.bean.BaseController;
 import com.haohao.fast.common.result.ResultData;
 import com.haohao.fast.domain.SysUserEntity;
+import com.haohao.fast.domain.param.DeleteUserParam;
 import com.haohao.fast.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 /**
  * 系统用户控制器
@@ -68,4 +71,10 @@ public class SysUserController extends BaseController<SysUserEntity> {
         return sysUserService.updateState(userId);
     }
 
+    @ApiOperation("删除用户")
+    @DeleteMapping
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
+    public ResultData delete(@RequestBody DeleteUserParam deleteUserParam) {
+        return ResultData.flag(sysUserService.removeBatchByIds(Arrays.asList(deleteUserParam.getUserIds())));
+    }
 }

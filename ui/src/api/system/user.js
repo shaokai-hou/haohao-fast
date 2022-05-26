@@ -46,3 +46,11 @@ export function updateState(userId) {
   })
 }
 
+export function deleteUser(data) {
+  return request({
+    url: '/api/user',
+    method: 'delete',
+    data: data
+  })
+}
+

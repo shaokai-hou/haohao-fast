@@ -82,6 +82,12 @@ export default {
         ],
         roleIds: [
           { required: true, message: '请选择用户角色', trigger: 'change' }
+        ],
+        phone: [
+          { pattern: this.constant.PHONE, message: '手机号格式错误', trigger: 'blur' }
+        ],
+        email: [
+          { pattern: this.constant.EMAIL, message: '邮箱格式错误', trigger: 'blur' }
         ]
       },
       passwordFlag: true
@@ -95,8 +101,10 @@ export default {
   },
   watch: {
     'entity.id'() {
-      this.form = this.entity
-      this.passwordFlag = false
+      this.$nextTick(() => {
+        this.form = this.entity
+        this.passwordFlag = false
+      })
     }
   },
   methods: {
@@ -107,15 +115,17 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           if (typeof this.form.id !== 'undefined') {
-            updateUser(this.form).then(res => {
-              console.log('res', res)
+            updateUser(this.form).then(() => {
+              this.$message.success('更新成功')
               this.handleClose()
+              this.resetForm()
               this.list()
             })
           } else {
-            saveUser(this.form).then(res => {
-              console.log('res', res)
+            saveUser(this.form).then(() => {
+              this.$message.success('保存成功')
               this.handleClose()
+              this.resetForm()
               this.list()
             })
           }

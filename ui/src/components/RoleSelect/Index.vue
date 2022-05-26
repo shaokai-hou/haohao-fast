@@ -19,7 +19,7 @@ export default {
       roleOptions: []
     }
   },
-  mounted() {
+  created() {
     this.getRoleOptions()
   },
   props: {

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @author haohao
  */
 @RestController
-@RequestMapping("/api/dict")
+@RequestMapping("/api/dict/data")
 @RequiredArgsConstructor
 @Api(value = "系统字典数据接口", tags = "系统字典数据接口")
 public class SysDictDataController extends BaseController<SysDictDataEntity> {

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haohao.fast.mapper.SysDictDataMapper">
+
+    <resultMap id="BaseResultMap" type="com.haohao.fast.domain.SysDictData">
+            <id property="dictDataId" column="dict_data_id" jdbcType="BIGINT"/>
+            <result property="dictCode" column="dict_code" jdbcType="VARCHAR"/>
+            <result property="dictLabel" column="dict_label" jdbcType="VARCHAR"/>
+            <result property="dictValue" column="dict_value" jdbcType="VARCHAR"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="deleted" column="deleted" jdbcType="INTEGER"/>
+            <result property="version" column="version" jdbcType="INTEGER"/>
+            <result property="creator" column="creator" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updater" column="updater" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        dict_data_id,dict_code,dict_label,
+        dict_value,sort,remark,
+        deleted,version,creator,
+        create_time,updater,update_time
+    </sql>
+</mapper>

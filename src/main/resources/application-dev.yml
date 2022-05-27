@@ -41,7 +41,6 @@ spring:
     username: guest
     password: guest
     virtual-host: /
-    # 手动确认消息
     listener:
       simple:
         acknowledge-mode: manual
@@ -54,13 +53,10 @@ mybatis-plus:
   global-config:
     banner: false
     db-config:
-      # 主键生成策略
       id-type: auto
-      # 逻辑删除
       logic-delete-field: deleted
       logic-delete-value: 1
       logic-not-delete-value: 0
-      # 可以更新null值
       update-strategy: ignored
 
 logging:
@@ -73,11 +69,7 @@ springfox:
       enabled: true
 
 jwt:
-  # 令牌自定义标识
   header: authorization
-  # 令牌密钥
   secret: abcdefghijklmnopqrstuvwxyz
-  # 令牌有效期（默认30分钟）
-  expireTime: 30
-  # 令牌前缀
+  expireTime: 60
   prefix: Bearer_

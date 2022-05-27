@@ -19,7 +19,7 @@ import lombok.*;
 @ApiModel("系统字典数据实体类")
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "sys_dict_data")
-public class SysDictData extends BaseEntity {
+public class SysDictDataEntity extends BaseEntity {
     /**
      * 字典数据ID
      */

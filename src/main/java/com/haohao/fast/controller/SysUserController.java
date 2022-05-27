@@ -10,6 +10,8 @@ import com.haohao.fast.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ import java.util.Arrays;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 @Api(value = "用户管理接口", tags = "用户管理接口")
+@CacheConfig(cacheNames = "user")
 public class SysUserController extends BaseController<SysUserEntity> {
 
     final SysUserService sysUserService;
@@ -46,6 +49,7 @@ public class SysUserController extends BaseController<SysUserEntity> {
     @ApiOperation("通过用户ID获取用户信息")
     @GetMapping("/{userId}")
     @PreAuthorize("@ss.hasAnyRole('dev,test')")
+    @Cacheable({"hot"})
     public ResultData getInfo(@PathVariable("userId") Long userId) {
         return sysUserService.getInfo(userId);
     }

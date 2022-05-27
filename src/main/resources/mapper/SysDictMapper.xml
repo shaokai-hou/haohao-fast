@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.haohao.fast.mapper.SysDictMapper">
 
-    <resultMap id="BaseResultMap" type="com.haohao.fast.domain.SysDict">
+    <resultMap id="BaseResultMap" type="com.haohao.fast.domain.SysDictEntity">
         <id property="dictId" column="dict_id" jdbcType="BIGINT"/>
         <result property="dictCode" column="dict_code" jdbcType="VARCHAR"/>
         <result property="dictName" column="dict_name" jdbcType="VARCHAR"/>

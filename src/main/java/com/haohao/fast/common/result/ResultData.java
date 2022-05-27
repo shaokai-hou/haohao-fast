@@ -2,6 +2,8 @@ package com.haohao.fast.common.result;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 
 /**
  * 统一返回结果
@@ -9,7 +11,7 @@ import lombok.Data;
  * @author haohao
  */
 @Data
-public class ResultData {
+public class ResultData implements Serializable {
 
     private Integer code;
 

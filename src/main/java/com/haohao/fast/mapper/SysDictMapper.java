@@ -1,7 +1,7 @@
 package com.haohao.fast.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.haohao.fast.domain.SysDict;
+import com.haohao.fast.domain.SysDictEntity;
 
 /**
  * @author haohao
@@ -9,6 +9,6 @@ import com.haohao.fast.domain.SysDict;
  * @createDate 2022-05-27 10:12:01
  * @Entity .domain.com.haohao.fast.domain.SysDict
  */
-public interface SysDictMapper extends BaseMapper<SysDict> {
+public interface SysDictMapper extends BaseMapper<SysDictEntity> {
 
 }

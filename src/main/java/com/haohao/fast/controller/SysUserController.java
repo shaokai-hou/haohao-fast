@@ -50,7 +50,7 @@ public class SysUserController extends BaseController<SysUserEntity> {
     @GetMapping("/{userId}")
     @PreAuthorize("@ss.hasAnyRole('dev,test')")
     @Cacheable({"hot"})
-    public ResultData getInfo(@PathVariable("userId") Long userId) {
+    public ResultData get(@PathVariable("userId") Long userId) {
         return sysUserService.getInfo(userId);
     }
 
@@ -68,6 +68,13 @@ public class SysUserController extends BaseController<SysUserEntity> {
         return sysUserService.updateUser(sysUserEntity);
     }
 
+    @ApiOperation("删除用户")
+    @DeleteMapping
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
+    public ResultData delete(@RequestBody DeleteUserParam deleteUserParam) {
+        return ResultData.flag(sysUserService.removeBatchByIds(Arrays.asList(deleteUserParam.getUserIds())));
+    }
+
     @ApiOperation("设置用户状态")
     @PutMapping("/state/{userId}")
     @PreAuthorize("@ss.hasAnyRole('dev,test')")
@@ -75,10 +82,4 @@ public class SysUserController extends BaseController<SysUserEntity> {
         return sysUserService.updateState(userId);
     }
 
-    @ApiOperation("删除用户")
-    @DeleteMapping
-    @PreAuthorize("@ss.hasAnyRole('dev,test')")
-    public ResultData delete(@RequestBody DeleteUserParam deleteUserParam) {
-        return ResultData.flag(sysUserService.removeBatchByIds(Arrays.asList(deleteUserParam.getUserIds())));
-    }
 }

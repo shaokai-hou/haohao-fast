@@ -43,8 +43,8 @@
 
         <el-row>
           <el-form-item class="form-button">
-            <el-button type="primary" size="small" @click="submitForm('ruleForm')">保存</el-button>
-            <el-button type="info" size="small" @click="resetForm('ruleForm')">重置</el-button>
+            <el-button type="primary" size="small" @click="submitForm">保存</el-button>
+            <el-button type="info" size="small" @click="resetForm">重置</el-button>
             <el-button type="danger" size="small" @click="handleClose">关闭</el-button>
           </el-form-item>
         </el-row>

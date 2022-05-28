@@ -138,12 +138,10 @@ export default {
       this.formDialog.open = true
       this.formDialog.title = '添加用户'
     },
-    /** 搜索按钮操作 */
     handleQuery() {
       this.queryParams.pageNum = 1
       this.getList()
     },
-    /** 重置按钮操作 */
     resetQuery() {
       this.handleQuery()
     }

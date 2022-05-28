@@ -15,3 +15,34 @@ export function getRoleList(query) {
     params: query
   })
 }
+
+export function getRoleInfo(roleId) {
+  return request({
+    url: '/api/role/' + roleId,
+    method: 'get'
+  })
+}
+
+export function saveRole(data) {
+  return request({
+    url: '/api/role/',
+    method: 'post',
+    data: data
+  })
+}
+
+export function updateRole(data) {
+  return request({
+    url: '/api/role/',
+    method: 'put',
+    data: data
+  })
+}
+
+export function deleteRole(data) {
+  return request({
+    url: '/api/role/',
+    method: 'delete',
+    data: data
+  })
+}

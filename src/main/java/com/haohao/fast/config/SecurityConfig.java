@@ -2,8 +2,8 @@ package com.haohao.fast.config;
 
 import com.haohao.fast.security.AccessDeniedHandlerImpl;
 import com.haohao.fast.security.AuthenticationEntryPointImpl;
-import com.haohao.fast.security.user.UserDetailsServiceImpl;
 import com.haohao.fast.security.JwtAuthenticationFilter;
+import com.haohao.fast.security.user.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

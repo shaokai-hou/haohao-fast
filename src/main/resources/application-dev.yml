@@ -61,7 +61,7 @@ mybatis-plus:
 
 logging:
   file:
-    path: logs
+    path: /Users/haohao/logs/haohao-fast
 
 springfox:
   documentation:

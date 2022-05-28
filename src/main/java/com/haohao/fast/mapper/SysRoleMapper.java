@@ -3,7 +3,6 @@ package com.haohao.fast.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.haohao.fast.domain.SysRoleEntity;
 
-import javax.management.relation.RoleInfo;
 import java.util.List;
 
 /**

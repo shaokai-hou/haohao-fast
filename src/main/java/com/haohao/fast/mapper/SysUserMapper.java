@@ -2,6 +2,7 @@ package com.haohao.fast.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.haohao.fast.domain.SysUserEntity;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author haohao
@@ -11,4 +12,19 @@ import com.haohao.fast.domain.SysUserEntity;
  */
 public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 
+    /**
+     * 真删除
+     *
+     * @param id 用户ID
+     * @return 影响行数
+     */
+    int reallyDeleteById(@Param("id") Long id);
+
+    /**
+     * 真删除
+     *
+     * @param ids 用户IDS
+     * @return 影响行数
+     */
+    int reallyDeleteByIds(@Param("ids") Long[] ids);
 }

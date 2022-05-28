@@ -1,18 +1,15 @@
 package com.haohao.fast.service.impl;
 
 import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haohao.fast.domain.SysMenuEntity;
-import com.haohao.fast.service.SysMenuService;
 import com.haohao.fast.mapper.SysMenuMapper;
+import com.haohao.fast.service.SysMenuService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author haohao

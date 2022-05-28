@@ -1,6 +1,5 @@
 package com.haohao.fast.security.user;
 
-import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.haohao.fast.domain.SysMenuEntity;
 import com.haohao.fast.domain.SysRoleEntity;

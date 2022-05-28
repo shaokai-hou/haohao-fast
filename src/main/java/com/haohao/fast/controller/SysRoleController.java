@@ -38,8 +38,14 @@ public class SysRoleController extends BaseController<SysRoleEntity> {
     @GetMapping("/page")
     @PreAuthorize("@ss.hasAnyRole('dev,test')")
     public ResultData page(SysRoleEntity sysRoleEntity) {
-        Page<SysRoleEntity> page = sysRoleService.page(getPage(), new QueryWrapper<>(sysRoleEntity));
-        return ResultData.success().data(page);
+        return ResultData.success().data(sysRoleService.page(getPage(), new QueryWrapper<>(sysRoleEntity)));
+    }
+
+    @ApiOperation("/查询角色信息")
+    @GetMapping("/{roleId}")
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
+    public ResultData get(@PathVariable("roleId") Long roleId) {
+        return ResultData.success().data(sysRoleService.getById(roleId));
     }
 
     @ApiOperation("添加角色")
@@ -59,8 +65,8 @@ public class SysRoleController extends BaseController<SysRoleEntity> {
     @ApiOperation("删除角色")
     @DeleteMapping
     @PreAuthorize("@ss.hasRole('dev,test')")
-    public ResultData delete(DeleteRoleParam deleteRoleParam) {
-        return ResultData.flag(sysRoleService.removeBatchByIds(Arrays.asList(deleteRoleParam.getRoleIds())));
+    public ResultData delete(@RequestBody DeleteRoleParam deleteRoleParam) {
+        return sysRoleService.delete(deleteRoleParam);
     }
 
 }

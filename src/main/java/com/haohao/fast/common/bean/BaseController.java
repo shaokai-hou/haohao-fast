@@ -9,7 +9,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 基础控制器
+ *
  * @author haohao
+ * @date 2022年05月28日 15:08
  */
 public class BaseController<T> {
 
@@ -52,4 +55,5 @@ public class BaseController<T> {
         RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
         return (ServletRequestAttributes) attributes;
     }
+
 }

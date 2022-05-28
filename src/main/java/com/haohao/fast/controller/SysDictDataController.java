@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.haohao.fast.common.bean.BaseController;
 import com.haohao.fast.common.result.ResultData;
 import com.haohao.fast.domain.SysDictDataEntity;
-import com.haohao.fast.domain.SysDictEntity;
 import com.haohao.fast.service.SysDictDataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

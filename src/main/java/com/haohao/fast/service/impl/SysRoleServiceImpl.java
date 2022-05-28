@@ -2,8 +2,8 @@ package com.haohao.fast.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haohao.fast.domain.SysRoleEntity;
-import com.haohao.fast.service.SysRoleService;
 import com.haohao.fast.mapper.SysRoleMapper;
+import com.haohao.fast.service.SysRoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

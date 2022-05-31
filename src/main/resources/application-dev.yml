@@ -1,16 +1,4 @@
-server:
-  port: 1010
-  servlet:
-    context-path: /
-
 spring:
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 20MB
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: Asia/Shanghai
   datasource:
     dynamic:
       primary: master
@@ -18,12 +6,12 @@ spring:
       datasource:
         master:
           url: jdbc:mysql://localhost:3306/haohao-fast?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
-          username: root
-          password: root
+          username: ENC(GnsUd+4gPniHL2X7eyN0cA==)
+          password: ENC(D1upE40RrbP0mT52ux3I8Q==)
         slave:
           url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
-          username: root
-          password: root
+          username: ENC(cZb8/5yU1KswpF2nCSnwRA==)
+          password: ENC(hlmZocQJDMxs8pKSt3ulsw==)
   redis:
     host: localhost
     port: 6379
@@ -45,20 +33,6 @@ spring:
       simple:
         acknowledge-mode: manual
 
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.haohao.fast.domain
-  global-config:
-    banner: false
-    db-config:
-      id-type: auto
-      logic-delete-field: deleted
-      logic-delete-value: 1
-      logic-not-delete-value: 0
-      update-strategy: ignored
-
 logging:
   file:
     path: /Users/haohao/logs/haohao-fast
@@ -67,9 +41,3 @@ springfox:
   documentation:
     swagger-ui:
       enabled: true
-
-jwt:
-  header: authorization
-  secret: abcdefghijklmnopqrstuvwxyz
-  expireTime: 60
-  prefix: Bearer_

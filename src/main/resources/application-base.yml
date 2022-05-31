@@ -31,3 +31,9 @@ jwt:
   secret: abcdefghijklmnopqrstuvwxyz
   expireTime: 60
   prefix: Bearer_
+
+jasypt:
+  encryptor:
+    password: 123456
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator

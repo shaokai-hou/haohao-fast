@@ -1,4 +1,4 @@
-package com.haohao.fast.properties;
+package com.haohao.fast.common.properties;
 
 
 import lombok.Data;

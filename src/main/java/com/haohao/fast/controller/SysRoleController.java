@@ -1,7 +1,6 @@
 package com.haohao.fast.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.haohao.fast.common.bean.BaseController;
 import com.haohao.fast.common.result.ResultData;
 import com.haohao.fast.domain.SysRoleEntity;
@@ -13,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 
 /**
  * @author haohao

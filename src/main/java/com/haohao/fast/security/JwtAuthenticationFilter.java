@@ -3,7 +3,7 @@ package com.haohao.fast.security;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.jwt.JWTUtil;
 import com.haohao.fast.common.constant.RedisConstant;
-import com.haohao.fast.properties.JwtProperties;
+import com.haohao.fast.common.properties.JwtProperties;
 import com.haohao.fast.security.user.UserDetailsImpl;
 import com.haohao.fast.util.JacksonUtils;
 import lombok.RequiredArgsConstructor;

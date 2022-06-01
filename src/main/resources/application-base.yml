@@ -4,10 +4,12 @@ server:
     context-path: /
 
 spring:
+  application:
+    name: haohao-fast
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 20MB
+      max-file-size: 50MB
+      max-request-size: 50MB
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Shanghai
@@ -37,3 +39,10 @@ jasypt:
     password: 123456
     algorithm: PBEWithMD5AndDES
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+minio:
+  url: http://localhost:9000
+  user: admin
+  password: admin123
+  bucketName: haohao-fast
+  allowedFileTypes: JPG,GIF,DOC,DOCX,XLS,XLSX,MP4,MP3

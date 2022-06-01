@@ -1,4 +1,4 @@
-package com.haohao.fast.util;
+package com.haohao.fast.common.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;

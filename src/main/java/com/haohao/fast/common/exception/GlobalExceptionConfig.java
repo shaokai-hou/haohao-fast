@@ -1,4 +1,4 @@
-package com.haohao.fast.exception;
+package com.haohao.fast.common.exception;
 
 import com.haohao.fast.common.result.ResultCodeEnum;
 import com.haohao.fast.common.result.ResultData;

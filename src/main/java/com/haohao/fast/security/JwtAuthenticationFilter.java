@@ -5,7 +5,7 @@ import cn.hutool.jwt.JWTUtil;
 import com.haohao.fast.common.constant.RedisConstant;
 import com.haohao.fast.common.properties.JwtProperties;
 import com.haohao.fast.security.user.UserDetailsImpl;
-import com.haohao.fast.util.JacksonUtils;
+import com.haohao.fast.common.util.JacksonUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

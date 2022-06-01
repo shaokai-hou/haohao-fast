@@ -1,4 +1,4 @@
-package com.haohao.fast.exception;
+package com.haohao.fast.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

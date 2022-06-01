@@ -1,6 +1,6 @@
 package com.haohao.fast.config;
 
-import com.haohao.fast.properties.MinioProperties;
+import com.haohao.fast.common.properties.MinioProperties;
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

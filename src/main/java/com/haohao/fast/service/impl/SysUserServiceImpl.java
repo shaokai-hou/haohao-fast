@@ -1,5 +1,7 @@
 package com.haohao.fast.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haohao.fast.common.constant.RedisConstant;
@@ -9,16 +11,15 @@ import com.haohao.fast.domain.SysRoleEntity;
 import com.haohao.fast.domain.SysUserEntity;
 import com.haohao.fast.domain.SysUserRoleEntity;
 import com.haohao.fast.mapper.SysUserMapper;
-import com.haohao.fast.service.SysMenuService;
-import com.haohao.fast.service.SysRoleService;
-import com.haohao.fast.service.SysUserRoleService;
-import com.haohao.fast.service.SysUserService;
+import com.haohao.fast.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,10 +35,12 @@ import java.util.stream.Collectors;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity>
         implements SysUserService {
 
+    final StringRedisTemplate redisTemplate;
+
     final SysRoleService roleService;
     final SysMenuService sysMenuService;
     final SysUserRoleService sysUserRoleService;
-    final StringRedisTemplate redisTemplate;
+    final MinioService minioService;
 
     /**
      * 根据用户ID获取用户信息
@@ -123,4 +126,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
         return ResultData.flag(this.getBaseMapper().updateById(sysUser) > 0);
     }
 
+    /**
+     * 导出用户
+     *
+     * @param sysUserEntity sysUserEntity
+     * @return ResultData
+     */
+    @Override
+    public ResultData exportUser(SysUserEntity sysUserEntity) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        EasyExcel.write(outputStream).sheet().doWrite(new ArrayList<>());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+        String fileName = "temp.xlsx";
+        String upload = minioService.upload(inputStream, fileName);
+        return StrUtil.isBlank(upload) ? ResultData.error() : ResultData.success().data(upload);
+    }
 }

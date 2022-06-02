@@ -20,12 +20,21 @@ public interface MinioService {
     String upload(MultipartFile file);
 
     /**
-     * 文件上传
+     * 多文件上传
      *
      * @param files 文件对象
      * @return 上传结果（多个用逗号分割）
      */
     String upload(MultipartFile[] files);
+
+    /**
+     * 文件上传
+     *
+     * @param inputStream      inputStream
+     * @param originalFilename 原文件名称
+     * @return 上传结果
+     */
+    String upload(InputStream inputStream, String originalFilename);
 
     /**
      * 下载

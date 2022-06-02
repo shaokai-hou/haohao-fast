@@ -1,22 +1,30 @@
 package com.haohao.fast.controller;
 
+import cn.hutool.core.util.IdUtil;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.haohao.fast.common.bean.BaseController;
 import com.haohao.fast.common.result.ResultData;
 import com.haohao.fast.domain.SysUserEntity;
 import com.haohao.fast.domain.param.DeleteUserParam;
+import com.haohao.fast.service.MinioService;
 import com.haohao.fast.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.*;
 
 /**
  * 系统用户控制器
@@ -82,4 +90,10 @@ public class SysUserController extends BaseController<SysUserEntity> {
         return sysUserService.updateState(userId);
     }
 
+    @ApiOperation("导出用户")
+    @GetMapping("/export/excel")
+    @PreAuthorize("@ss.hasAnyRole('dev,test')")
+    public ResultData exportExcel(SysUserEntity sysUserEntity) {
+        return sysUserService.exportUser(sysUserEntity);
+    }
 }

@@ -42,4 +42,12 @@ public interface SysUserService extends IService<SysUserEntity> {
      * @return ResultData
      */
     ResultData updateState(Long userId);
+
+    /**
+     * 导出用户
+     *
+     * @param sysUserEntity sysUserEntity
+     * @return ResultData
+     */
+    ResultData exportUser(SysUserEntity sysUserEntity);
 }

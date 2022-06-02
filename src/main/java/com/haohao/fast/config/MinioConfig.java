@@ -25,7 +25,7 @@ public class MinioConfig {
      */
     @Bean
     public MinioClient minioClient() {
-        log.info("Init MinioClient Success");
+        log.info("Init minioClient success");
         return MinioClient.
                 builder().
                 endpoint(minioProperties.getUrl()).

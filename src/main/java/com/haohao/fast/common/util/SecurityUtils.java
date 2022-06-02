@@ -1,7 +1,7 @@
-package com.haohao.fast.util;
+package com.haohao.fast.common.util;
 
 import com.haohao.fast.common.constant.HttpConstant;
-import com.haohao.fast.exception.BaseException;
+import com.haohao.fast.common.exception.BaseException;
 import com.haohao.fast.security.user.UserDetailsImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

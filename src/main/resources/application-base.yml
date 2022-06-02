@@ -32,7 +32,7 @@ jwt:
   header: authorization
   secret: abcdefghijklmnopqrstuvwxyz
   expireTime: 60
-  prefix: Bearer_
+  prefix: Bearer
 
 jasypt:
   encryptor:

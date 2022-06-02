@@ -2,7 +2,7 @@ package com.haohao.fast.security;
 
 import com.haohao.fast.common.result.ResultCodeEnum;
 import com.haohao.fast.common.result.ResultData;
-import com.haohao.fast.util.JacksonUtils;
+import com.haohao.fast.common.util.JacksonUtils;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;

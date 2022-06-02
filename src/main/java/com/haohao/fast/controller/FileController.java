@@ -21,7 +21,7 @@ import java.io.InputStream;
  * @date 2022年05月31日 16:00
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/file")
 @Api(value = "文件管理接口", tags = "文件管理接口")
 @RequiredArgsConstructor
 public class FileController {
@@ -42,7 +42,10 @@ public class FileController {
     @SneakyThrows
     public void download(String fileName, HttpServletResponse response) {
         InputStream inputStream = minioService.download(fileName);
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("multipart/form-data");
+        response.setHeader("Content-Disposition", "attachment; fileName=downloadFile." + FileNameUtil.getSuffix(fileName));
         IoUtil.copy(inputStream, response.getOutputStream(), IoUtil.DEFAULT_BUFFER_SIZE);
-        response.setCharacterEncoding("UTF-8");
     }
+
 }

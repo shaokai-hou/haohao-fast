@@ -3,7 +3,7 @@ package com.haohao.fast.security;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.haohao.fast.common.result.ResultCodeEnum;
-import com.haohao.fast.exception.BaseException;
+import com.haohao.fast.common.exception.BaseException;
 import com.haohao.fast.security.user.UserDetailsImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

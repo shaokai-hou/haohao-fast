@@ -1,4 +1,4 @@
-package com.haohao.fast.util;
+package com.haohao.fast.common.util;
 
 import org.jasypt.util.text.BasicTextEncryptor;
 
